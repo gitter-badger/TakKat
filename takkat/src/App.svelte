@@ -1,17 +1,17 @@
 <script>
+    import { defaultEvmStores } from 'svelte-web3'
+    import { connected, web3, selectedAccount, chainId, chainData } from 'svelte-web3'
+    defaultEvmStores.setProvider()
 </script>
 
 <main>
-	<b>Welcome to the Decentralized Web!</b>
-	<button>Sign Up</button>
-	<button> Sign In</button>	
+    <div id="title">
+        <h1><b>Welcome to the Decentralized Social Media!</b></h1>
+    </div>
 </main>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+    #title{
+        text-align: center;
+    }
 </style>
