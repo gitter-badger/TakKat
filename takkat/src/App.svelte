@@ -1,7 +1,37 @@
 <script>
 	import { defaultEvmStores, selectedAccount } from 'svelte-web3';
-	export let password = document.getElementById('password');
-	defaultEvmStores.setProvider();
+	import {createHash} from 'crypto';
+
+	let is_error = false;
+	let username;
+	let password;
+
+	function hash(input){
+		return createHash('sha256').update(password).digest('hex');
+	}
+i
+	function signup(){
+		if(password.value == ""){
+			error();
+		}
+		else if(username.value == ""){
+			error();
+		}
+		else if(password.value != "" && username.value != ""){
+			defaultEvmStores.setProvider();
+			let account = $selectedAccount;
+			let s_passwword = hash(password);
+			let s_username = hash(username);
+			let s_account = hash(account);
+			console.log(s_passwword);
+			is_error = false;
+		}
+	}
+
+	function error(){
+			is_error = true;
+	}
+	
 </script>
 
 <main>
@@ -10,10 +40,18 @@
 	</div><br>
 	<div id="sign">
   		<label for="username">Username:</label>
-		<input type="text" id="username" name="username" ><br><br>
+		<input type="text" id="username" name="username" bind:this={username}><br><br>
 		<label for="password">Password:</label>
-		<input type="password" id="password" name="password" ><br><br>
-		<button onclick="signup()">Sign Up</button><br>
+		<input type="password" id="password" name="password" bind:this={password}><br><br>
+		{#if is_error == true}
+			<b>Password or Username are Incorrect!</b><br>
+		{/if}
+		<button on:click={signup}>Sign Up</button><br><br><br>
+	</div><br><br>
+
+	<div id="copyright">
+		<p>Copyright (c) 2022 Mastcharub</p>
+		<p>MIT License</p><br>
 	</div>
 	
 </main>
@@ -39,5 +77,11 @@
 		text-align: center;	
 		cursor: pointer;
 		font-size: 2rem;
+	}
+	#sign > b{
+		color: red;
+	}
+	#copyright{
+		text-align: center;	
 	}
 </style>
