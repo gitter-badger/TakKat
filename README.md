@@ -1,1 +1,0 @@
-# **Takkat, the *decentralized* social media.**
